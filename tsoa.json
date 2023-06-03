@@ -1,0 +1,25 @@
+{
+    "spec": {
+        "name": "Recipe Book",
+        "version": "1.0.0",
+        "outputDirectory": "./../api",
+        "specFileBaseName": "openapi",
+        "basePath": "/api",
+        "specVersion": 3,
+        "yaml": true,
+        "host": "localhost:3000",
+        "schemes": [
+            "http",
+            "https"
+        ]
+    },
+    "entryFile": "src/server.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": ["src/controllers/*controller.ts"],  
+    "routes": {
+        "routesDir": "./src/routes",
+        "routesFileName": "routes.ts",
+        "basePath": "/api",
+        "useSuccessResponseCode": "false"
+    }
+}
