@@ -1,0 +1,186 @@
+components:
+    examples: {}
+    headers: {}
+    parameters: {}
+    requestBodies: {}
+    responses: {}
+    schemas:
+        RecipeListingDto:
+            properties:
+                recipeId:
+                    type: string
+                    description: 'The id of the recipe'
+                userId:
+                    type: string
+                    description: 'The id of the user associated with the recipe'
+                name:
+                    type: string
+                    description: 'The name of the recipe'
+                totalTime:
+                    type: string
+                    description: 'The total time for the recipe'
+                createdTs:
+                    type: string
+                    format: date-time
+                    description: 'The timestamp of when the recipe was created'
+            type: object
+            additionalProperties: false
+        RecipeDto:
+            properties:
+                recipeId:
+                    type: string
+                    description: 'The id of the recipe'
+                userId:
+                    type: string
+                    description: 'The id of the user associated with the recipe'
+                name:
+                    type: string
+                    description: 'The name of the recipe'
+                recipeDescription:
+                    type: string
+                    description: 'The detailed description of the recipe'
+                prepTime:
+                    type: number
+                    format: double
+                    description: 'The prep time for the recipe'
+                cookTime:
+                    type: number
+                    format: double
+                    description: 'The cook time for the recipe'
+                ingredients:
+                    items:
+                        type: string
+                    type: array
+                    description: 'The ingredients for the recipe'
+                instructions:
+                    items:
+                        type: string
+                    type: array
+                    description: 'The instructions for the recipe'
+            type: object
+            additionalProperties: false
+        UserDto:
+            properties:
+                id:
+                    type: string
+                    description: 'The id of the user'
+                firstName:
+                    type: string
+                    description: 'The first name of the user'
+                lastName:
+                    type: string
+                    description: 'The last name of the user'
+                email:
+                    type: string
+                    description: 'The email of the user'
+                password:
+                    type: string
+                    description: 'The hashed password of the user'
+            type: object
+            additionalProperties: false
+    securitySchemes: {}
+info:
+    title: 'Recipe Book'
+    version: 1.0.0
+    description: 'backend for recipe book'
+    license:
+        name: ISC
+    contact:
+        name: 'Evan Fisher'
+openapi: 3.0.0
+paths:
+    /recipes:
+        get:
+            operationId: GetRecipes
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: '#/components/schemas/RecipeListingDto'
+                                type: array
+            security: []
+            parameters: []
+    '/recipes/{recipeId}':
+        get:
+            operationId: GetRecipe
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecipeDto'
+            security: []
+            parameters:
+                -
+                    in: path
+                    name: recipeId
+                    required: true
+                    schema:
+                        type: string
+        put:
+            operationId: UpdateRecipe
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecipeDto'
+            security: []
+            parameters:
+                -
+                    in: path
+                    name: recipeId
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/RecipeDto'
+        delete:
+            operationId: DeleteRecipe
+            responses:
+                '204':
+                    description: 'No Content'
+            security: []
+            parameters:
+                -
+                    in: path
+                    name: recipeId
+                    required: true
+                    schema:
+                        type: string
+    /recipes/blank:
+        post:
+            operationId: CreateBlankRecipie
+            responses:
+                '201':
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/RecipeDto'
+            security: []
+            parameters: []
+    /login:
+        get:
+            operationId: Login
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserDto'
+            security: []
+            parameters: []
+servers:
+    -
+        url: 'http://localhost:3000/api'

@@ -2,7 +2,7 @@
     "spec": {
         "name": "Recipe Book",
         "version": "1.0.0",
-        "outputDirectory": "./../api",
+        "outputDirectory": "./api",
         "specFileBaseName": "openapi",
         "basePath": "/api",
         "specVersion": 3,
