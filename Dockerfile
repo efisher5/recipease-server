@@ -1,6 +1,6 @@
 FROM node:lts
 
-WORKDIR /menu-server-app
+WORKDIR /back
 
 COPY . .
 
@@ -12,4 +12,4 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD npm run docker
+CMD ['npm', 'run', 'docker']

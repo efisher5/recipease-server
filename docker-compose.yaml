@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:14.4
+    restart: always
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5051:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - menu-net
+  pgadmin:
+    image: dpage/pgadmin4:6.10
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    volumes:
+      - ./data-pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    networks:
+      - menu-net
+  back:
+    image: back
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - NODE_ENV=development
+      - DB_PORT=5432
+      - DATABASE_URL="postgresql://postgres:Skimmer=10@localhost:5432/recipe-book?schema=rb"
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/menu-server
+      - /node_modules
+    networks:
+      - menu-net
+networks:
+  menu-net:
