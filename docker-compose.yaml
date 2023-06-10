@@ -35,9 +35,9 @@ services:
     depends_on:
       - postgres
     environment:
-      - NODE_ENV=development
-      - DB_PORT=5432
-      - DATABASE_URL="postgresql://postgres:Skimmer=10@localhost:5432/recipe-book?schema=rb"
+      NODE_ENV: development
+      DB_PORT: 5433
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/menu?schema=dev
     ports:
       - 3000:3000
     volumes:
