@@ -18,11 +18,11 @@ export class RecipeDto {
      */
     'name'?: string;
     /**
-     * The detailed description of the recipe
+     * The notes for the recipe
      * @type {string}
      * @memberof RecipeDto
      */
-    'recipeDescription'?: string;
+    'notes'?: string;
     /**
      * The prep time hours for the recipe
      * @type {number}

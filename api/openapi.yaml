@@ -36,9 +36,9 @@ components:
                 name:
                     type: string
                     description: 'The name of the recipe'
-                recipeDescription:
+                notes:
                     type: string
-                    description: 'The detailed description of the recipe'
+                    description: 'The notes for the recipe'
                 prepTimeHours:
                     type: number
                     format: double

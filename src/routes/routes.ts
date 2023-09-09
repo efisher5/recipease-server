@@ -29,7 +29,7 @@ const models: TsoaRoute.Models = {
             "recipeId": {"dataType":"string"},
             "userId": {"dataType":"string"},
             "name": {"dataType":"string"},
-            "recipeDescription": {"dataType":"string"},
+            "notes": {"dataType":"string"},
             "prepTimeHours": {"dataType":"double"},
             "prepTimeMinutes": {"dataType":"double"},
             "cookTimeHours": {"dataType":"double"},

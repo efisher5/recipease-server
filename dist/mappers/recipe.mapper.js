@@ -8,7 +8,7 @@ class RecipeMapper {
         recipeDto.recipeId = recipe.id;
         recipeDto.userId = recipe.user_id;
         recipeDto.name = recipe.name;
-        recipeDto.recipeDescription = recipe.description;
+        recipeDto.notes = recipe.notes;
         recipeDto.prepTimeHours = recipe.prep_time_hours;
         recipeDto.prepTimeMinutes = recipe.prep_time_minutes;
         recipeDto.cookTimeHours = recipe.cook_time_hours;
@@ -55,7 +55,7 @@ class RecipeMapper {
         recipe.id = recipeDto.recipeId;
         recipe.user_id = recipeDto.userId;
         recipe.name = recipeDto.name;
-        recipe.description = recipeDto.recipeDescription;
+        recipe.notes = recipeDto.notes;
         recipe.prep_time_hours = recipeDto.prepTimeHours;
         recipe.prep_time_minutes = recipeDto.prepTimeMinutes;
         recipe.cook_time_hours = recipeDto.cookTimeHours;
