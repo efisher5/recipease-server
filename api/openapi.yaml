@@ -39,14 +39,22 @@ components:
                 recipeDescription:
                     type: string
                     description: 'The detailed description of the recipe'
-                prepTime:
+                prepTimeHours:
                     type: number
                     format: double
-                    description: 'The prep time for the recipe'
-                cookTime:
+                    description: 'The prep time hours for the recipe'
+                prepTimeMinutes:
                     type: number
                     format: double
-                    description: 'The cook time for the recipe'
+                    description: 'The prep time minutes for the recipe'
+                cookTimeHours:
+                    type: number
+                    format: double
+                    description: 'The cook time hours for the recipe'
+                cookTimeMinutes:
+                    type: number
+                    format: double
+                    description: 'The cook time minutes for the recipe'
                 ingredients:
                     items:
                         type: string

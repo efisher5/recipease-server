@@ -16,8 +16,10 @@ async function main() {
                     {
                         name: 'Chili Crisp Fettucine Alfredo',
                         description: '',
-                        prep_time: 5,
-                        cook_time: 20,
+                        prep_time_hours: 0,
+                        prep_time_minutes: 5,
+                        cook_time_hours: 0,
+                        cook_time_minutes: 20,
                         ingredients: [
                             '1lb fettucine',
                             '1 cup heavy cream',
@@ -39,8 +41,10 @@ async function main() {
                     {
                         name: 'Apricot Couscous Pilaf',
                         description: '',
-                        prep_time: 10,
-                        cook_time: 15,
+                        prep_time_hours: 0,
+                        prep_time_minutes: 10,
+                        cook_time_hours: 0,
+                        cook_time_minutes: 15,
                         ingredients: [
                             'Box of instant couscous',
                             '1/2 cup diced red bell pepper',
@@ -65,8 +69,10 @@ async function main() {
                     {
                         name: 'Cornbread',
                         description: '',
-                        prep_time: 20,
-                        cook_time: 40,
+                        prep_time_hours: 0,
+                        prep_time_minutes: 20,
+                        cook_time_hours: 0,
+                        cook_time_minutes: 40,
                         ingredients: [
                             '3 eggs',
                             '1 cup sour cream',

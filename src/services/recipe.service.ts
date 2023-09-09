@@ -28,8 +28,10 @@ export default class RecipeService {
             recipe.created_by = user.email;
             recipe.user_id = user.id;
             recipe.name = 'Blank Recipe';
-            recipe.prep_time = 0;
-            recipe.cook_time = 0;
+            recipe.prep_time_hours = 0;
+            recipe.prep_time_minutes = 0;
+            recipe.cook_time_hours = 0;
+            recipe.cook_time_minutes = 0;
 
             return await this.recipeRepository.createRecipe(recipe);
         } catch (e) {

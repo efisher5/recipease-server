@@ -9,8 +9,10 @@ class RecipeMapper {
         recipeDto.userId = recipe.user_id;
         recipeDto.name = recipe.name;
         recipeDto.recipeDescription = recipe.description;
-        recipeDto.prepTime = recipe.prep_time;
-        recipeDto.cookTime = recipe.cook_time;
+        recipeDto.prepTimeHours = recipe.prep_time_hours;
+        recipeDto.prepTimeMinutes = recipe.prep_time_minutes;
+        recipeDto.cookTimeHours = recipe.cook_time_hours;
+        recipeDto.cookTimeMinutes = recipe.cook_time_minutes;
         recipeDto.ingredients = recipe.ingredients;
         recipeDto.instructions = recipe.instructions;
         return recipeDto;
@@ -22,22 +24,30 @@ class RecipeMapper {
         recipeListingDto.name = recipe.name;
         recipeListingDto.createdTs = recipe.created_ts;
         // Convert prep time and cook time into cook time
-        let combinedTime = recipe.cook_time + recipe.prep_time;
-        let hours = 0;
-        let minutes = 0;
-        if (combinedTime >= 60) {
-            hours = Math.floor(combinedTime / 60);
-            minutes = combinedTime % 60;
-            if (minutes) {
-                recipeListingDto.totalTime = hours + " hours " + minutes + " minutes";
+        let combinedMinutes = recipe.cook_time_minutes + recipe.prep_time_minutes;
+        let combinedHours = recipe.cook_time_hours + recipe.prep_time_hours;
+        if (combinedMinutes >= 60) {
+            combinedHours++;
+            combinedMinutes = combinedMinutes % 60;
+        }
+        let totalTime = '';
+        if (combinedHours > 0) {
+            if (combinedHours === 1) {
+                totalTime += combinedHours + ' hour';
             }
             else {
-                recipeListingDto.totalTime = hours > 1 ? hours + " hours" : hours + " hour";
+                totalTime += combinedHours + ' hours';
             }
         }
-        else if (combinedTime < 60) {
-            recipeListingDto.totalTime = combinedTime + " minutes";
+        if (combinedMinutes > 0) {
+            if (combinedMinutes === 1) {
+                totalTime += ' ' + combinedMinutes + ' minute';
+            }
+            else {
+                totalTime += ' ' + combinedMinutes + ' minutes';
+            }
         }
+        recipeListingDto.totalTime = totalTime;
         return recipeListingDto;
     }
     recipeDtoToRecipe(recipeDto) {
@@ -46,8 +56,10 @@ class RecipeMapper {
         recipe.user_id = recipeDto.userId;
         recipe.name = recipeDto.name;
         recipe.description = recipeDto.recipeDescription;
-        recipe.prep_time = recipeDto.prepTime;
-        recipe.cook_time = recipeDto.cookTime;
+        recipe.prep_time_hours = recipeDto.prepTimeHours;
+        recipe.prep_time_minutes = recipeDto.prepTimeMinutes;
+        recipe.cook_time_hours = recipeDto.cookTimeHours;
+        recipe.cook_time_minutes = recipeDto.cookTimeMinutes;
         recipe.ingredients = recipeDto.ingredients;
         recipe.instructions = recipeDto.instructions;
         return recipe;
