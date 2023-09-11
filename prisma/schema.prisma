@@ -27,9 +27,11 @@ model recipe {
   user              user                  @relation(fields: [user_id], references: [id])
   user_id           String
   name              String
-  description       String?
-  prep_time         Int
-  cook_time         Int
+  notes             String?
+  prep_time_hours   Int
+  prep_time_minutes Int
+  cook_time_hours   Int
+  cook_time_minutes Int
   ingredients       String[]
   instructions      String[]
   created_ts        DateTime              @default(now())
