@@ -1,10 +1,12 @@
-import { PrismaClient, recipe as Recipe } from '@prisma/client';
+import { PrismaClient, recipe as Recipe, user as User } from '@prisma/client';
 
 const prisma = new PrismaClient;
 
 export default class RecipeRepository {
-    public async findAllRecipes(): Promise<Recipe[]> {
-        return await prisma.recipe.findMany({});
+    public async findAllRecipes(user: User): Promise<Recipe[]> {
+        return await prisma.recipe.findMany({
+            where: { user_id: user.id }
+        });
     }
 
     public async findRecipeById(recipeId: string): Promise<Recipe> {

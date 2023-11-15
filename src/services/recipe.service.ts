@@ -4,9 +4,9 @@ import RecipeRepository from '../repository/recipe.repository';
 export default class RecipeService {
     private recipeRepository: RecipeRepository = new RecipeRepository();
 
-    public async findRecipes(): Promise<Recipe[]> {
+    public async findRecipes(user: User): Promise<Recipe[]> {
         try {
-            const recipes: Recipe[] = await this.recipeRepository.findAllRecipes();
+            const recipes: Recipe[] = await this.recipeRepository.findAllRecipes(user);
             return recipes;
         } catch (e) {
             throw e;

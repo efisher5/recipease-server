@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
+import passport from 'passport';
 import { RegisterRoutes } from './routes/routes';
 import { auth } from 'express-oauth2-jwt-bearer';
 
@@ -16,6 +17,8 @@ app.use(cors());
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }))
 app.use(jwtCheck);
+app.use(passport.initialize());
+app.use(passport.session());
 
 RegisterRoutes(app);
 

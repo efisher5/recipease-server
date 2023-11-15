@@ -65,7 +65,9 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
     }
     getRecipes(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const recipes = yield this.recipeService.findRecipes();
+            const requestUser = request.user;
+            const user = yield this.userService.findUser(requestUser.id);
+            const recipes = yield this.recipeService.findRecipes(user);
             return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
         });
     }
@@ -75,18 +77,20 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
             return this.recipeMapper.recipeToRecipeDto(recipe);
         });
     }
-    createBlankRecipie() {
+    createBlankRecipie(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUser('monsterK@admin.com'));
-            const recipe = yield this.recipeService.createRecipe(requestUser);
+            const requestUser = request.user;
+            const user = yield this.userService.findUser(requestUser.id);
+            const recipe = yield this.recipeService.createRecipe(user);
             return this.recipeMapper.recipeToRecipeDto(recipe);
         });
     }
-    updateRecipe(recipeId, recipeDto) {
+    updateRecipe(request, recipeId, recipeDto) {
         return __awaiter(this, void 0, void 0, function* () {
-            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUser('monsterK@admin.com'));
+            const requestUser = request.user;
+            const user = yield this.userService.findUser(requestUser.id);
             const recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
-            return this.recipeMapper.recipeToRecipeDto(yield this.recipeService.updateRecipe(recipeId, recipe, requestUser));
+            return this.recipeMapper.recipeToRecipeDto(yield this.recipeService.updateRecipe(recipeId, recipe, user));
         });
     }
     deleteRecipe(request, recipeId) {
@@ -115,17 +119,19 @@ __decorate([
 __decorate([
     (0, tsoa_1.Post)("/blank"),
     (0, tsoa_1.SuccessResponse)("201", "Created"),
+    __param(0, (0, tsoa_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "createBlankRecipie", null);
 __decorate([
     (0, tsoa_1.Put)("/{recipeId}"),
     (0, tsoa_1.SuccessResponse)("200", "OK"),
-    __param(0, (0, tsoa_1.Path)()),
-    __param(1, (0, tsoa_1.Body)()),
+    __param(0, (0, tsoa_1.Request)()),
+    __param(1, (0, tsoa_1.Path)()),
+    __param(2, (0, tsoa_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, recipe_dto_1.RecipeDto]),
+    __metadata("design:paramtypes", [Object, String, recipe_dto_1.RecipeDto]),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "updateRecipe", null);
 __decorate([

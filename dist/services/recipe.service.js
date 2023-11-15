@@ -17,10 +17,10 @@ class RecipeService {
     constructor() {
         this.recipeRepository = new recipe_repository_1.default();
     }
-    findRecipes() {
+    findRecipes(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const recipes = yield this.recipeRepository.findAllRecipes();
+                const recipes = yield this.recipeRepository.findAllRecipes(user);
                 return recipes;
             }
             catch (e) {

@@ -20,7 +20,9 @@ export class RecipeController extends Controller {
     @Get("/")
     @SuccessResponse("200", "OK")
     public async getRecipes(@Request() request: express.Request): Promise<RecipeListingDto[]> {
-        const recipes: Recipe[] = await this.recipeService.findRecipes();
+        const requestUser: User = <User>request.user;
+        const user = await this.userService.findUser(requestUser.id);
+        const recipes: Recipe[] = await this.recipeService.findRecipes(user);
         return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
     }
 
@@ -33,19 +35,20 @@ export class RecipeController extends Controller {
 
     @Post("/blank")
     @SuccessResponse("201", "Created")
-    public async createBlankRecipie(): Promise<RecipeDto> {
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUser('monsterK@admin.com'));
-        const recipe: Recipe = await this.recipeService.createRecipe(requestUser);
+    public async createBlankRecipie(@Request() request: express.Request): Promise<RecipeDto> {
+        const requestUser: User = <User>request.user;
+        const user = await this.userService.findUser(requestUser.id);
+        const recipe: Recipe = await this.recipeService.createRecipe(user);
         return this.recipeMapper.recipeToRecipeDto(recipe);
     }
 
     @Put("/{recipeId}")
     @SuccessResponse("200", "OK")
-    public async updateRecipe(@Path() recipeId: string, @Body() recipeDto: RecipeDto): Promise<RecipeDto> {
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUser('monsterK@admin.com'));
-        
+    public async updateRecipe(@Request() request: express.Request, @Path() recipeId: string, @Body() recipeDto: RecipeDto): Promise<RecipeDto> {
+        const requestUser: User = <User>request.user;
+        const user = await this.userService.findUser(requestUser.id);
         const recipe: Recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
-        return this.recipeMapper.recipeToRecipeDto(await this.recipeService.updateRecipe(recipeId, recipe, requestUser));
+        return this.recipeMapper.recipeToRecipeDto(await this.recipeService.updateRecipe(recipeId, recipe, user));
     }
 
     @Delete("/{recipeId}")
