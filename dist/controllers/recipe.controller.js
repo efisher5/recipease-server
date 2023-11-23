@@ -65,6 +65,7 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
     }
     getRecipes(request) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(request.userInfo);
             const recipes = yield this.recipeService.findRecipes();
             return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
         });

@@ -9,6 +9,7 @@ import RecipeMapper from '../mappers/recipe.mapper';
 import UserMapper from '../mappers/user.mapper';
 import { UserDto } from '../dtos/user.dto';
 import UserService from '../services/user.service';
+import axios from 'axios';
 
 @Route("/recipes")
 export class RecipeController extends Controller {
@@ -20,6 +21,7 @@ export class RecipeController extends Controller {
     @Get("/")
     @SuccessResponse("200", "OK")
     public async getRecipes(@Request() request: express.Request): Promise<RecipeListingDto[]> {
+        console.log(request.userInfo);
         const recipes: Recipe[] = await this.recipeService.findRecipes();
         return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
     }
