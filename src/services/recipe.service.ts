@@ -1,30 +1,38 @@
 import { recipe as Recipe, user as User } from '@prisma/client';
 import RecipeRepository from '../repository/recipe.repository';
+import RecipeMapper from '../mappers/recipe.mapper';
+import UserMapper from '../mappers/user.mapper';
+import { RecipeListingDto } from '../dtos/recipeListing.dto';
+import { RecipeDto } from '../dtos/recipe.dto';
 
 export default class RecipeService {
+    private recipeMapper: RecipeMapper = new RecipeMapper();
+    private userMapper: UserMapper = new UserMapper();
     private recipeRepository: RecipeRepository = new RecipeRepository();
 
-    public async findRecipes(): Promise<Recipe[]> {
+    public async findRecipes(): Promise<RecipeListingDto[]> {
         try {
             const recipes: Recipe[] = await this.recipeRepository.findAllRecipes();
-            return recipes;
+            const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe))
+            return recipeListingDtos;
         } catch (e) {
             throw e;
         }
     }
 
-    public async getRecipeById(recipeId: string): Promise<Recipe> {
+    public async getRecipeById(recipeId: string): Promise<RecipeDto> {
         try {
             const recipe: Recipe = await this.recipeRepository.findRecipeById(recipeId);
-            return recipe;
+            const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            return recipeDto;
         } catch (e) {
             throw e;
         }
     }
 
-    public async createRecipe(user: User): Promise<Recipe> {
+    public async createRecipe(user: User): Promise<RecipeDto> {
         try {
-            const recipe: Recipe = {} as Recipe;
+            let recipe: Recipe = {} as Recipe;
             recipe.created_by = user.email;
             recipe.user_id = user.id;
             recipe.name = 'Blank Recipe';
@@ -33,18 +41,21 @@ export default class RecipeService {
             recipe.cook_time_hours = 0;
             recipe.cook_time_minutes = 0;
 
-            return await this.recipeRepository.createRecipe(recipe);
+            recipe = await this.recipeRepository.createRecipe(recipe);
+            const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            return recipeDto;
         } catch (e) {
             throw e;
         }
     }
 
-    public async updateRecipe(recipeId: string, recipe: Recipe, user: User): Promise<Recipe> {
+    public async updateRecipe(recipeId: string, recipe: Recipe, user: User): Promise<RecipeDto> {
         try {
             recipe.updated_by = user.email;
             recipe.updated_ts = new Date();
 
-            return await this.recipeRepository.updateRecipe(recipeId, recipe);
+            const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            return recipeDto;
         } catch (e) {
             throw e;
         }

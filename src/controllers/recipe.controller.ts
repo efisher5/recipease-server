@@ -21,16 +21,13 @@ export class RecipeController extends Controller {
     @Get("/")
     @SuccessResponse("200", "OK")
     public async getRecipes(@Request() request: express.Request): Promise<RecipeListingDto[]> {
-        console.log(request.userInfo);
-        const recipes: Recipe[] = await this.recipeService.findRecipes();
-        return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
+        return await this.recipeService.findRecipes();
     }
 
     @Get("/{recipeId}")
     @SuccessResponse("200", "OK")
     public async getRecipe(@Request() request: express.Request, @Path() recipeId: string): Promise<RecipeDto> {
-        const recipe: Recipe = await this.recipeService.getRecipeById(recipeId);
-        return this.recipeMapper.recipeToRecipeDto(recipe);
+        return await this.recipeService.getRecipeById(recipeId);
     }
 
     @Post("/blank")
@@ -38,8 +35,7 @@ export class RecipeController extends Controller {
     public async createBlankRecipie(@Request() request: express.Request): Promise<RecipeDto> {
         const reqUser = request.userInfo;
         const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
-        const recipe: Recipe = await this.recipeService.createRecipe(requestUser);
-        return this.recipeMapper.recipeToRecipeDto(recipe);
+        return await this.recipeService.createRecipe(requestUser);
     }
 
     @Put("/{recipeId}")
@@ -48,7 +44,7 @@ export class RecipeController extends Controller {
         const reqUser = request.userInfo;
         const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
         const recipe: Recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
-        return this.recipeMapper.recipeToRecipeDto(await this.recipeService.updateRecipe(recipeId, recipe, requestUser));
+        return await this.recipeService.updateRecipe(recipeId, recipe, requestUser);
     }
 
     @Delete("/{recipeId}")

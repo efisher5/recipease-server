@@ -65,23 +65,19 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
     }
     getRecipes(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(request.userInfo);
-            const recipes = yield this.recipeService.findRecipes();
-            return recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
+            return yield this.recipeService.findRecipes();
         });
     }
     getRecipe(request, recipeId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const recipe = yield this.recipeService.getRecipeById(recipeId);
-            return this.recipeMapper.recipeToRecipeDto(recipe);
+            return yield this.recipeService.getRecipeById(recipeId);
         });
     }
     createBlankRecipie(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const reqUser = request.userInfo;
             const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUserByEmail('monsterK@admin.com'));
-            const recipe = yield this.recipeService.createRecipe(requestUser);
-            return this.recipeMapper.recipeToRecipeDto(recipe);
+            return yield this.recipeService.createRecipe(requestUser);
         });
     }
     updateRecipe(request, recipeId, recipeDto) {
@@ -89,7 +85,7 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
             const reqUser = request.userInfo;
             const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUserByEmail('monsterK@admin.com'));
             const recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
-            return this.recipeMapper.recipeToRecipeDto(yield this.recipeService.updateRecipe(recipeId, recipe, requestUser));
+            return yield this.recipeService.updateRecipe(recipeId, recipe, requestUser);
         });
     }
     deleteRecipe(request, recipeId) {

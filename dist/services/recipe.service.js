@@ -13,15 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const recipe_repository_1 = __importDefault(require("../repository/recipe.repository"));
+const recipe_mapper_1 = __importDefault(require("../mappers/recipe.mapper"));
+const user_mapper_1 = __importDefault(require("../mappers/user.mapper"));
 class RecipeService {
     constructor() {
+        this.recipeMapper = new recipe_mapper_1.default();
+        this.userMapper = new user_mapper_1.default();
         this.recipeRepository = new recipe_repository_1.default();
     }
     findRecipes() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const recipes = yield this.recipeRepository.findAllRecipes();
-                return recipes;
+                const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
+                return recipeListingDtos;
             }
             catch (e) {
                 throw e;
@@ -32,7 +37,8 @@ class RecipeService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const recipe = yield this.recipeRepository.findRecipeById(recipeId);
-                return recipe;
+                const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+                return recipeDto;
             }
             catch (e) {
                 throw e;
@@ -42,7 +48,7 @@ class RecipeService {
     createRecipe(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const recipe = {};
+                let recipe = {};
                 recipe.created_by = user.email;
                 recipe.user_id = user.id;
                 recipe.name = 'Blank Recipe';
@@ -50,7 +56,9 @@ class RecipeService {
                 recipe.prep_time_minutes = 0;
                 recipe.cook_time_hours = 0;
                 recipe.cook_time_minutes = 0;
-                return yield this.recipeRepository.createRecipe(recipe);
+                recipe = yield this.recipeRepository.createRecipe(recipe);
+                const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+                return recipeDto;
             }
             catch (e) {
                 throw e;
@@ -62,7 +70,8 @@ class RecipeService {
             try {
                 recipe.updated_by = user.email;
                 recipe.updated_ts = new Date();
-                return yield this.recipeRepository.updateRecipe(recipeId, recipe);
+                const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+                return recipeDto;
             }
             catch (e) {
                 throw e;
