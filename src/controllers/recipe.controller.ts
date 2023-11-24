@@ -37,7 +37,7 @@ export class RecipeController extends Controller {
     @SuccessResponse("201", "Created")
     public async createBlankRecipie(@Request() request: express.Request): Promise<RecipeDto> {
         const reqUser = request.userInfo;
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUser('monsterK@admin.com'));
+        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
         const recipe: Recipe = await this.recipeService.createRecipe(requestUser);
         return this.recipeMapper.recipeToRecipeDto(recipe);
     }
@@ -46,7 +46,7 @@ export class RecipeController extends Controller {
     @SuccessResponse("200", "OK")
     public async updateRecipe(@Request() request: express.Request, @Path() recipeId: string, @Body() recipeDto: RecipeDto): Promise<RecipeDto> {
         const reqUser = request.userInfo;
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUser('monsterK@admin.com'));
+        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
         const recipe: Recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
         return this.recipeMapper.recipeToRecipeDto(await this.recipeService.updateRecipe(recipeId, recipe, requestUser));
     }

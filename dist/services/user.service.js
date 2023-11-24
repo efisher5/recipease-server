@@ -17,11 +17,52 @@ class UserService {
     constructor() {
         this.userRepository = new user_repository_1.default();
     }
-    findUser(email) {
+    findUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield this.userRepository.findUserOnLogin(email);
                 return user;
+            }
+            catch (e) {
+                throw e;
+            }
+        });
+    }
+    findUserById(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.userRepository.findUser(userId);
+                return user;
+            }
+            catch (e) {
+                throw e;
+            }
+        });
+    }
+    createUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this.userRepository.createUser(user);
+            }
+            catch (e) {
+                throw e;
+            }
+        });
+    }
+    updateUser(userId, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this.userRepository.updateUser(userId, user);
+            }
+            catch (e) {
+                throw e;
+            }
+        });
+    }
+    deleteUser(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.userRepository.deleteRecipe(userId);
             }
             catch (e) {
                 throw e;

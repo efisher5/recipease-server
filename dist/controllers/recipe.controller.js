@@ -79,7 +79,7 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
     createBlankRecipie(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const reqUser = request.userInfo;
-            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUser('monsterK@admin.com'));
+            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUserByEmail('monsterK@admin.com'));
             const recipe = yield this.recipeService.createRecipe(requestUser);
             return this.recipeMapper.recipeToRecipeDto(recipe);
         });
@@ -87,7 +87,7 @@ let RecipeController = class RecipeController extends tsoa_1.Controller {
     updateRecipe(request, recipeId, recipeDto) {
         return __awaiter(this, void 0, void 0, function* () {
             const reqUser = request.userInfo;
-            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUser('monsterK@admin.com'));
+            const requestUser = this.userMapper.userDtoToUser(yield this.userService.findUserByEmail('monsterK@admin.com'));
             const recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
             return this.recipeMapper.recipeToRecipeDto(yield this.recipeService.updateRecipe(recipeId, recipe, requestUser));
         });
