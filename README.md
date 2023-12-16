@@ -1,6 +1,6 @@
 # Getting Started with Recipease
 
-The backend of Recipe Book was built with Node.js, Express, Prisma, and Postgres.
+This is the back-end repository for Recipease, the recipe storage application. The back-end of Recipe Book was built with Node.js, Express, Prisma, and Postgres. The front-end repository can be found [here](https://github.com/efisher5/menu).
 
 ## Available Scripts
 
