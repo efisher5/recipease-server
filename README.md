@@ -1,4 +1,4 @@
-# Getting Started with Recipe Book Backend
+# Getting Started with Recipease
 
 The backend of Recipe Book was built with Node.js, Express, Prisma, and Postgres.
 
