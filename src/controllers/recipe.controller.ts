@@ -34,17 +34,15 @@ export class RecipeController extends Controller {
     @SuccessResponse("201", "Created")
     public async createBlankRecipie(@Request() request: express.Request): Promise<RecipeDto> {
         const reqUser = request.userInfo;
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
-        return await this.recipeService.createRecipe(requestUser);
+        return await this.recipeService.createRecipe(reqUser);
     }
 
     @Put("/{recipeId}")
     @SuccessResponse("200", "OK")
     public async updateRecipe(@Request() request: express.Request, @Path() recipeId: string, @Body() recipeDto: RecipeDto): Promise<RecipeDto> {
         const reqUser = request.userInfo;
-        const requestUser = this.userMapper.userDtoToUser(await this.userService.findUserByEmail('monsterK@admin.com'));
         const recipe: Recipe = this.recipeMapper.recipeDtoToRecipe(recipeDto);
-        return await this.recipeService.updateRecipe(recipeId, recipe, requestUser);
+        return await this.recipeService.updateRecipe(recipeId, recipe, reqUser);
     }
 
     @Delete("/{recipeId}")

@@ -1,13 +1,11 @@
 import { recipe as Recipe, user as User } from '@prisma/client';
 import RecipeRepository from '../repository/recipe.repository';
 import RecipeMapper from '../mappers/recipe.mapper';
-import UserMapper from '../mappers/user.mapper';
 import { RecipeListingDto } from '../dtos/recipeListing.dto';
 import { RecipeDto } from '../dtos/recipe.dto';
 
 export default class RecipeService {
     private recipeMapper: RecipeMapper = new RecipeMapper();
-    private userMapper: UserMapper = new UserMapper();
     private recipeRepository: RecipeRepository = new RecipeRepository();
 
     public async findRecipes(): Promise<RecipeListingDto[]> {

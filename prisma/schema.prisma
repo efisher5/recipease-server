@@ -16,7 +16,6 @@ model user {
   first_name        String
   last_name         String
   email             String                @unique
-  password          String
   recipes           recipe[]
   created_ts        DateTime              @default(now())
   updated_ts        DateTime?

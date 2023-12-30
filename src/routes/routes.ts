@@ -47,7 +47,6 @@ const models: TsoaRoute.Models = {
             "firstName": {"dataType":"string"},
             "lastName": {"dataType":"string"},
             "email": {"dataType":"string"},
-            "password": {"dataType":"string"},
         },
         "additionalProperties": false,
     },
@@ -119,6 +118,7 @@ export function RegisterRoutes(app: Router) {
 
             function RecipeController_createBlankRecipie(request: any, response: any, next: any) {
             const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -143,6 +143,7 @@ export function RegisterRoutes(app: Router) {
 
             function RecipeController_updateRecipe(request: any, response: any, next: any) {
             const args = {
+                    request: {"in":"request","name":"request","required":true,"dataType":"object"},
                     recipeId: {"in":"path","name":"recipeId","required":true,"dataType":"string"},
                     recipeDto: {"in":"body","name":"recipeDto","required":true,"ref":"RecipeDto"},
             };

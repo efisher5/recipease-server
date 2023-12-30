@@ -47,7 +47,6 @@ const models = {
             "firstName": { "dataType": "string" },
             "lastName": { "dataType": "string" },
             "email": { "dataType": "string" },
-            "password": { "dataType": "string" },
         },
         "additionalProperties": false,
     },
@@ -96,7 +95,9 @@ function RegisterRoutes(app) {
     });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     app.post('/api/recipes/blank', ...((0, runtime_1.fetchMiddlewares)(recipe_controller_1.RecipeController)), ...((0, runtime_1.fetchMiddlewares)(recipe_controller_1.RecipeController.prototype.createBlankRecipie)), function RecipeController_createBlankRecipie(request, response, next) {
-        const args = {};
+        const args = {
+            request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
+        };
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {
@@ -112,6 +113,7 @@ function RegisterRoutes(app) {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     app.put('/api/recipes/:recipeId', ...((0, runtime_1.fetchMiddlewares)(recipe_controller_1.RecipeController)), ...((0, runtime_1.fetchMiddlewares)(recipe_controller_1.RecipeController.prototype.updateRecipe)), function RecipeController_updateRecipe(request, response, next) {
         const args = {
+            request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
             recipeId: { "in": "path", "name": "recipeId", "required": true, "dataType": "string" },
             recipeDto: { "in": "body", "name": "recipeDto", "required": true, "ref": "RecipeDto" },
         };

@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { auth } from 'express-oauth2-jwt-bearer';
 import { RegisterRoutes } from './routes/routes';
 import { setUserInfo } from './middlewares/auth';
+import { user as User } from '@prisma/client';
 
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ const jwtCheck = auth({
 declare global {
     namespace Express {
         interface Request {
-            userInfo?: any
+            userInfo?: User
         }
     }
 }

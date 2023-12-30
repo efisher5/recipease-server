@@ -14,11 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const recipe_repository_1 = __importDefault(require("../repository/recipe.repository"));
 const recipe_mapper_1 = __importDefault(require("../mappers/recipe.mapper"));
-const user_mapper_1 = __importDefault(require("../mappers/user.mapper"));
 class RecipeService {
     constructor() {
         this.recipeMapper = new recipe_mapper_1.default();
-        this.userMapper = new user_mapper_1.default();
         this.recipeRepository = new recipe_repository_1.default();
     }
     findRecipes() {

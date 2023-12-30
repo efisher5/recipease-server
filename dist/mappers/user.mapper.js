@@ -16,7 +16,6 @@ class UserMapper {
         user.email = userDto.email;
         user.first_name = userDto.firstName;
         user.last_name = userDto.lastName;
-        user.password = userDto.password;
         return user;
     }
 }

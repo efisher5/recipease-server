@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setUserInfo = void 0;
 const axios_1 = __importDefault(require("axios"));
+const user_service_1 = __importDefault(require("../services/user.service"));
 // Calls Auth0 /userinfo endpoint to get user information from access token
 function getUserInfo(accessToken) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,6 +23,7 @@ function getUserInfo(accessToken) {
             return response.data;
         }
         catch (error) {
+            console.log(error);
             throw new Error('failed to get user information');
         }
     });
@@ -39,9 +41,21 @@ function getUserInfo(accessToken) {
 function setUserInfo(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accessToken = req.auth.token;
-            const userInfo = yield getUserInfo(accessToken);
-            req.userInfo = userInfo;
+            const userService = new user_service_1.default();
+            let user = yield userService.findUserById(req.auth.payload.sub);
+            if (!user) {
+                // Create new user
+                console.log('new created');
+                const userInfo = yield getUserInfo(req.auth.token);
+                const newUser = {};
+                newUser.id = userInfo.sub;
+                newUser.email = userInfo.email;
+                newUser.first_name = userInfo.name;
+                newUser.last_name = '';
+                newUser.created_ts = new Date();
+                user = yield userService.createUser(newUser);
+            }
+            req.userInfo = user;
             next(); // need this to move on from this middleware
         }
         catch (error) {
