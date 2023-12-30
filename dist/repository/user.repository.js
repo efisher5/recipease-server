@@ -19,5 +19,34 @@ class UserRepository {
             });
         });
     }
+    findUser(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.user.findFirst({
+                where: { id: userId }
+            });
+        });
+    }
+    createUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.user.create({
+                data: user
+            });
+        });
+    }
+    updateUser(userId, user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.user.update({
+                where: { id: userId },
+                data: user
+            });
+        });
+    }
+    deleteRecipe(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.user.delete({
+                where: { id: userId }
+            });
+        });
+    }
 }
 exports.default = UserRepository;

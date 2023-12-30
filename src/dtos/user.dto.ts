@@ -23,10 +23,4 @@ export class UserDto {
      * @memberof UserDto
      */
     'email'?: string;
-    /**
-     * The hashed password of the user
-     * @type {string}
-     * @memberof UserDto
-     */
-    'password'?: string;
 }
