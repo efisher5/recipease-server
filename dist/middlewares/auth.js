@@ -16,6 +16,15 @@ exports.setUserInfo = void 0;
 const axios_1 = __importDefault(require("axios"));
 const user_service_1 = __importDefault(require("../services/user.service"));
 // Calls Auth0 /userinfo endpoint to get user information from access token
+/* Note that this workflow isn't scalable.
+* The /userinfo endpoint can only be called 5 times per minute per Auth0 Rate Limit policy.
+* This endpoint is only called when a user doesn't already exist in the DB, so calls will be
+* limited to first time users. Since the number of users will be limited, this shouldn't be
+* a huge issue. But it's likely this will need to evolve eventually. - 12/30/23
+*
+* This actually shouldn't be a problem because it's 5 times per minute per user. By storing the
+* value in the DB after first call, we shouldn't have to make the call again and be good - 1/4/24
+*/
 function getUserInfo(accessToken) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -28,16 +37,6 @@ function getUserInfo(accessToken) {
         }
     });
 }
-/* TODO Need to convert the userInfo object into a UserDto that can be used within the app
-- userInfo object is missing certain properties (created_ts) that are available but are not being passed
-- userInfo object has user_id but it's not the same format as uuid - will need to convert
-- workflow needs to be:
-    - take auth0 id and find it in DB
-    - if user is returned, then attach that user to the req object
-    - if no user is returned, create a new user with auth0 information
-    - attach that new user to the req object
-*/
-// Attach user information onto request object
 function setUserInfo(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -45,7 +44,6 @@ function setUserInfo(req, res, next) {
             let user = yield userService.findUserById(req.auth.payload.sub);
             if (!user) {
                 // Create new user
-                console.log('new created');
                 const userInfo = yield getUserInfo(req.auth.token);
                 const newUser = {};
                 newUser.id = userInfo.sub;

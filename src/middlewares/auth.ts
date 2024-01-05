@@ -9,6 +9,9 @@ import { user as User } from '@prisma/client';
 * This endpoint is only called when a user doesn't already exist in the DB, so calls will be
 * limited to first time users. Since the number of users will be limited, this shouldn't be
 * a huge issue. But it's likely this will need to evolve eventually. - 12/30/23
+*
+* This actually shouldn't be a problem because it's 5 times per minute per user. By storing the
+* value in the DB after first call, we shouldn't have to make the call again and be good - 1/4/24
 */
 async function getUserInfo(accessToken: string) {
     try {
@@ -25,7 +28,7 @@ export async function setUserInfo(req: express.Request, res: express.Response, n
     try {
         const userService: UserService = new UserService();
         let user = await userService.findUserById(req.auth.payload.sub);
-
+    
         if (!user) {
             // Create new user
             const userInfo = await getUserInfo(req.auth.token);
