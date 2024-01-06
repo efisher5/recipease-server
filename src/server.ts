@@ -8,10 +8,11 @@ import { user as User } from '@prisma/client';
 
 const app = express();
 const port = 3000;
+const NODE_AUDIENCE = process.env.NODE_AUDIENCE;
 
 // Auth0 logic for parsing JWT access token from front end
 const jwtCheck = auth({
-    audience: 'http://localhost:3000/api',
+    audience: NODE_AUDIENCE,
     issuerBaseURL: 'https://dev-jrqafy16s4gs5ji0.us.auth0.com/',
     tokenSigningAlg: 'RS256'
 })
