@@ -10,10 +10,10 @@ const express_oauth2_jwt_bearer_1 = require("express-oauth2-jwt-bearer");
 const routes_1 = require("./routes/routes");
 const auth_1 = require("./middlewares/auth");
 const app = (0, express_1.default)();
-const port = 3000;
+const port = process.env.PORT || 3000;
 // Auth0 logic for parsing JWT access token from front end
 const jwtCheck = (0, express_oauth2_jwt_bearer_1.auth)({
-    audience: 'http://localhost:3000/api',
+    audience: process.env.NODE_AUDIENCE,
     issuerBaseURL: 'https://dev-jrqafy16s4gs5ji0.us.auth0.com/',
     tokenSigningAlg: 'RS256'
 });
