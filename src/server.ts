@@ -7,7 +7,7 @@ import { setUserInfo } from './middlewares/auth';
 import { user as User } from '@prisma/client';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Auth0 logic for parsing JWT access token from front end
 const jwtCheck = auth({
