@@ -68,6 +68,7 @@ class RecipeService {
             try {
                 recipe.updated_by = user.email;
                 recipe.updated_ts = new Date();
+                recipe = yield this.recipeRepository.updateRecipe(recipeId, recipe);
                 const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
                 return recipeDto;
             }

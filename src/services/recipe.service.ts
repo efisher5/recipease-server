@@ -52,6 +52,7 @@ export default class RecipeService {
             recipe.updated_by = user.email;
             recipe.updated_ts = new Date();
 
+            recipe = await this.recipeRepository.updateRecipe(recipeId, recipe);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
             return recipeDto;
         } catch (e) {
