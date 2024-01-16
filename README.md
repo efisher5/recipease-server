@@ -2,6 +2,8 @@
 
 This is the back-end repository for Recipease, the recipe storage application. The back-end of Recipe Book was built with Node.js, Express, Prisma, and Postgres. The front-end repository can be found [here](https://github.com/efisher5/menu).
 
+This application is currently being hosted on Heroku, with the database hosted on Supabase.
+
 ## Available Scripts
 
 | Code | Description |
@@ -9,10 +11,13 @@ This is the back-end repository for Recipease, the recipe storage application. T
 | `npm run start` | Runs the app locally |
 | `npm run build` | Runs the TypeScript 'tsc' command |
 | `npm run prisma:migrate-dev` | Creates Prisma migrations when schema chaanges |
+| `npm run prisma:migrtate-reset` | Resets database and re-runs migrations |
+| `npm run gen:tsoa` | Takes DTO's and controller files and converts them into openapi.yaml for frontend use |
+| `git push heroku main` | Deploys the main branch to Heroku |
 
-## Notes
+## Postgres and pgAdmin
 
-For whatever reason, the prisma seed script does not like the project using modules. Remove "type: modules" from package.json when running seed or reset scripts.
+Recipease uses Postgres for its database, version 15.5 to be specific. Using pgAdmin helps with database management. You'll need to set a DATABASE_URL environment variable to ensure proper connection between Postgres and Prisma. To test if the connection works, you can run the `npm run prisma:migrate-reset` command in a terminal. You should see a new database and schema show up. 
 
 ## Docker
 
