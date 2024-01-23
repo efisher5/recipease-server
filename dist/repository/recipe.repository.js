@@ -12,9 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient;
 class RecipeRepository {
-    findAllRecipes() {
+    findAllRecipes(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield prisma.recipe.findMany({});
+            return yield prisma.recipe.findMany({
+                where: { user_id: userId }
+            });
         });
     }
     findRecipeById(recipeId) {

@@ -19,10 +19,10 @@ class RecipeService {
         this.recipeMapper = new recipe_mapper_1.default();
         this.recipeRepository = new recipe_repository_1.default();
     }
-    findRecipes() {
+    findRecipes(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const recipes = yield this.recipeRepository.findAllRecipes();
+                const recipes = yield this.recipeRepository.findAllRecipes(userId);
                 const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
                 return recipeListingDtos;
             }

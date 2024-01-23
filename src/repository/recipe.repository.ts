@@ -3,8 +3,10 @@ import { PrismaClient, recipe as Recipe } from '@prisma/client';
 const prisma = new PrismaClient;
 
 export default class RecipeRepository {
-    public async findAllRecipes(): Promise<Recipe[]> {
-        return await prisma.recipe.findMany({});
+    public async findAllRecipes(userId: string): Promise<Recipe[]> {
+        return await prisma.recipe.findMany({
+            where: {user_id: userId }
+        });
     }
 
     public async findRecipeById(recipeId: string): Promise<Recipe> {

@@ -8,9 +8,9 @@ export default class RecipeService {
     private recipeMapper: RecipeMapper = new RecipeMapper();
     private recipeRepository: RecipeRepository = new RecipeRepository();
 
-    public async findRecipes(): Promise<RecipeListingDto[]> {
+    public async findRecipes(userId: string): Promise<RecipeListingDto[]> {
         try {
-            const recipes: Recipe[] = await this.recipeRepository.findAllRecipes();
+            const recipes: Recipe[] = await this.recipeRepository.findAllRecipes(userId);
             const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe))
             return recipeListingDtos;
         } catch (e) {

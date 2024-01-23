@@ -24,6 +24,7 @@ const user_service_1 = __importDefault(require("../services/user.service"));
 *
 * This actually shouldn't be a problem because it's 5 times per minute per user. By storing the
 * value in the DB after first call, we shouldn't have to make the call again and be good - 1/4/24
+* https://community.auth0.com/t/rate-limits-applied-to-userinfo-from-server-side-calls/88682
 */
 function getUserInfo(accessToken) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -53,19 +53,16 @@ const tsoa_1 = require("tsoa");
 const recipe_service_1 = __importDefault(require("../services/recipe.service"));
 const recipe_dto_1 = require("../dtos/recipe.dto");
 const recipe_mapper_1 = __importDefault(require("../mappers/recipe.mapper"));
-const user_mapper_1 = __importDefault(require("../mappers/user.mapper"));
-const user_service_1 = __importDefault(require("../services/user.service"));
 let RecipeController = class RecipeController extends tsoa_1.Controller {
     constructor() {
         super(...arguments);
         this.recipeService = new recipe_service_1.default();
         this.recipeMapper = new recipe_mapper_1.default();
-        this.userMapper = new user_mapper_1.default();
-        this.userService = new user_service_1.default();
     }
     getRecipes(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.recipeService.findRecipes();
+            const reqUser = request.userInfo;
+            return yield this.recipeService.findRecipes(reqUser.id);
         });
     }
     getRecipe(request, recipeId) {
