@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const recipe_repository_1 = __importDefault(require("../repository/recipe.repository"));
 const recipe_mapper_1 = __importDefault(require("../mappers/recipe.mapper"));
+const logger_1 = require("../config/logger");
 class RecipeService {
     constructor() {
         this.recipeMapper = new recipe_mapper_1.default();
@@ -22,6 +23,7 @@ class RecipeService {
     findRecipes(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                logger_1.logger.info('test logger');
                 const recipes = yield this.recipeRepository.findAllRecipes(userId);
                 const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
                 return recipeListingDtos;

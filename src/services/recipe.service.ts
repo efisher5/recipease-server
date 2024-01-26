@@ -3,6 +3,7 @@ import RecipeRepository from '../repository/recipe.repository';
 import RecipeMapper from '../mappers/recipe.mapper';
 import { RecipeListingDto } from '../dtos/recipeListing.dto';
 import { RecipeDto } from '../dtos/recipe.dto';
+import { logger } from '../config/logger';
 
 export default class RecipeService {
     private recipeMapper: RecipeMapper = new RecipeMapper();
@@ -10,6 +11,7 @@ export default class RecipeService {
 
     public async findRecipes(userId: string): Promise<RecipeListingDto[]> {
         try {
+            logger.info('test logger')
             const recipes: Recipe[] = await this.recipeRepository.findAllRecipes(userId);
             const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe))
             return recipeListingDtos;
