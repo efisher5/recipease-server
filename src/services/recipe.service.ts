@@ -11,10 +11,9 @@ export default class RecipeService {
 
     public async findRecipes(userId: string): Promise<RecipeListingDto[]> {
         try {
-            logger.info('Finding recipes for user: ' + userId);
+            // Note: Not adding info logs for this function so userId isn't exposed to console
             const recipes: Recipe[] = await this.recipeRepository.findAllRecipes(userId);
             const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe))
-            logger.info('Successfully found recipes');
             return recipeListingDtos;
         } catch (e) {
             logger.error('Error finding recipes: ' + e);
@@ -27,7 +26,7 @@ export default class RecipeService {
             logger.info('Getting details for recipe: ' + recipeId);
             const recipe: Recipe = await this.recipeRepository.findRecipeById(recipeId);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-            logger.info('Successfully found recipe details');
+            logger.info('Successfully found recipe details for recipe: ' + recipeId);
             return recipeDto;
         } catch (e) {
             logger.error('Error getting recipe details: ' + e);
@@ -37,7 +36,7 @@ export default class RecipeService {
 
     public async createRecipe(user: User): Promise<RecipeDto> {
         try {
-            logger.info('Creating recipe for user: ' + user.id);
+            // Note: Not adding info logs for this function so userId isn't exposed to console
             let recipe: Recipe = {} as Recipe;
             recipe.created_by = user.email;
             recipe.user_id = user.id;
@@ -49,7 +48,7 @@ export default class RecipeService {
 
             recipe = await this.recipeRepository.createRecipe(recipe);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-            logger.info('Successfully created new recipe');
+            logger.info('Successfully updated recipe: ' + recipeDto.recipeId);
             return recipeDto;
         } catch (e) {
             logger.error('Error creating recipe: ' + e);
@@ -65,7 +64,7 @@ export default class RecipeService {
 
             recipe = await this.recipeRepository.updateRecipe(recipeId, recipe);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-            logger.info('Successfully updated recipe');
+            logger.info('Successfully updated recipe: ' + recipeId);
             return recipeDto;
         } catch (e) {
             logger.error('Error updating recipe: ' + e);
@@ -77,7 +76,7 @@ export default class RecipeService {
         try {
             logger.info('Deleting recipe: ' + recipeId);
             await this.recipeRepository.deleteRecipe(recipeId);
-            logger.info('Successfully deleted recipe');
+            logger.info('Successfully deleted recipe: ' + recipeId);
         } catch (e) {
             logger.error('Error deleting recipe: ' + e);
             throw e;
