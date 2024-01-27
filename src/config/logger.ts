@@ -8,6 +8,7 @@ export const logger = createLogger({
                 format.colorize(),
                 format.simple()
             )
-        })]
+        })
+    ]
 })
 

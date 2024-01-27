@@ -11,27 +11,33 @@ export default class RecipeService {
 
     public async findRecipes(userId: string): Promise<RecipeListingDto[]> {
         try {
-            logger.info('test logger')
+            logger.info('Finding recipes for user: ' + userId);
             const recipes: Recipe[] = await this.recipeRepository.findAllRecipes(userId);
             const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe))
+            logger.info('Successfully found recipes');
             return recipeListingDtos;
         } catch (e) {
+            logger.error('Error finding recipes: ' + e);
             throw e;
         }
     }
 
     public async getRecipeById(recipeId: string): Promise<RecipeDto> {
         try {
+            logger.info('Getting details for recipe: ' + recipeId);
             const recipe: Recipe = await this.recipeRepository.findRecipeById(recipeId);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            logger.info('Successfully found recipe details');
             return recipeDto;
         } catch (e) {
+            logger.error('Error getting recipe details: ' + e);
             throw e;
         }
     }
 
     public async createRecipe(user: User): Promise<RecipeDto> {
         try {
+            logger.info('Creating recipe for user: ' + user.id);
             let recipe: Recipe = {} as Recipe;
             recipe.created_by = user.email;
             recipe.user_id = user.id;
@@ -43,29 +49,37 @@ export default class RecipeService {
 
             recipe = await this.recipeRepository.createRecipe(recipe);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            logger.info('Successfully created new recipe');
             return recipeDto;
         } catch (e) {
+            logger.error('Error creating recipe: ' + e);
             throw e;
         }
     }
 
     public async updateRecipe(recipeId: string, recipe: Recipe, user: User): Promise<RecipeDto> {
         try {
+            logger.info('Editing recipe: ' + recipeId);
             recipe.updated_by = user.email;
             recipe.updated_ts = new Date();
 
             recipe = await this.recipeRepository.updateRecipe(recipeId, recipe);
             const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
+            logger.info('Successfully updated recipe');
             return recipeDto;
         } catch (e) {
+            logger.error('Error updating recipe: ' + e);
             throw e;
         }
     }
 
     public async deleteRecipe(recipeId: string): Promise<void> {
         try {
+            logger.info('Deleting recipe: ' + recipeId);
             await this.recipeRepository.deleteRecipe(recipeId);
+            logger.info('Successfully deleted recipe');
         } catch (e) {
+            logger.error('Error deleting recipe: ' + e);
             throw e;
         }
     }
