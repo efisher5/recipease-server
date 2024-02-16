@@ -23,10 +23,9 @@ class RecipeService {
     findRecipes(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.logger.info('Finding recipes for user: ' + userId);
+                // Note: Not adding info logs for this function so userId isn't exposed to console
                 const recipes = yield this.recipeRepository.findAllRecipes(userId);
                 const recipeListingDtos = recipes.map((recipe) => this.recipeMapper.recipeToRecipeListingDto(recipe));
-                logger_1.logger.info('Successfully found recipes');
                 return recipeListingDtos;
             }
             catch (e) {
@@ -41,7 +40,7 @@ class RecipeService {
                 logger_1.logger.info('Getting details for recipe: ' + recipeId);
                 const recipe = yield this.recipeRepository.findRecipeById(recipeId);
                 const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-                logger_1.logger.info('Successfully found recipe details');
+                logger_1.logger.info('Successfully found recipe details for recipe: ' + recipeId);
                 return recipeDto;
             }
             catch (e) {
@@ -53,7 +52,7 @@ class RecipeService {
     createRecipe(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                logger_1.logger.info('Creating recipe for user: ' + user.id);
+                // Note: Not adding info logs for this function so userId isn't exposed to console
                 let recipe = {};
                 recipe.created_by = user.email;
                 recipe.user_id = user.id;
@@ -64,7 +63,7 @@ class RecipeService {
                 recipe.cook_time_minutes = 0;
                 recipe = yield this.recipeRepository.createRecipe(recipe);
                 const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-                logger_1.logger.info('Successfully created new recipe');
+                logger_1.logger.info('Successfully updated recipe: ' + recipeDto.recipeId);
                 return recipeDto;
             }
             catch (e) {
@@ -81,7 +80,7 @@ class RecipeService {
                 recipe.updated_ts = new Date();
                 recipe = yield this.recipeRepository.updateRecipe(recipeId, recipe);
                 const recipeDto = this.recipeMapper.recipeToRecipeDto(recipe);
-                logger_1.logger.info('Successfully updated recipe');
+                logger_1.logger.info('Successfully updated recipe: ' + recipeId);
                 return recipeDto;
             }
             catch (e) {
@@ -95,7 +94,7 @@ class RecipeService {
             try {
                 logger_1.logger.info('Deleting recipe: ' + recipeId);
                 yield this.recipeRepository.deleteRecipe(recipeId);
-                logger_1.logger.info('Successfully deleted recipe');
+                logger_1.logger.info('Successfully deleted recipe: ' + recipeId);
             }
             catch (e) {
                 logger_1.logger.error('Error deleting recipe: ' + e);
