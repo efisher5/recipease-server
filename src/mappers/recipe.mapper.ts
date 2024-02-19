@@ -52,7 +52,7 @@ export default class RecipeMapper {
                 totalTime += ' ' + combinedMinutes + ' minutes'
             }
         }
-        recipeListingDto.totalTime = totalTime;
+        recipeListingDto.totalTime = totalTime.trim();
 
         return recipeListingDto;
     }

@@ -20,7 +20,7 @@ export const recipeDtoExample: RecipeDto = {
     instructions: [
         'Dice the onions',
         'Shred the cheese',
-        'Cook onions on mediym low for 10 minutes',
+        'Cook onions on medium low for 10 minutes',
         'Mix cheese and onions. Put on bread and cook on each side for 5 minutes'
     ]
 }
