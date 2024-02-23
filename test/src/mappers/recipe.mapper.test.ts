@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import { recipe as Recipe } from '@prisma/client';
 import { RecipeDto } from '../../../src/dtos/recipe.dto';
 import { RecipeListingDto } from '../../../src/dtos/recipeListing.dto';
-import { recipeExample } from '../../mock_data/recipeMock';
+import { recipeExample, recipeOneHourExample, recipeMultipleHoursExample, recipeOneMinuteExample } from '../../mock_data/recipeMock';
 import { recipeDtoExample } from '../../mock_data/recipeDtoMock';
 import { recipeListingDtoExample } from '../../mock_data/recipeListingDtoMock';
 import RecipeMapper from '../../../src/mappers/recipe.mapper';
@@ -55,4 +55,19 @@ describe("Test Recipe Mapper", () => {
             expect(instruction).toEqual(recipeExample.instructions[i]);
         }
     });
+
+    test('recipeTorecipeListingDtoOneHour', () => {
+        const res: RecipeListingDto = recipeMapper.recipeToRecipeListingDto(recipeOneHourExample);
+        expect(res.totalTime).toBe('1 hour');
+    })
+
+    test('recipeToRecipeListingDtoOneMinute', () => {
+        const res: RecipeListingDto = recipeMapper.recipeToRecipeListingDto(recipeOneMinuteExample);
+        expect(res.totalTime).toBe('1 minute');
+    })
+
+    test('recipeToRecipeListingDtoMultipleHours', () => {
+        const res: RecipeListingDto = recipeMapper.recipeToRecipeListingDto(recipeMultipleHoursExample);
+        expect(res.totalTime).toBe('2 hours');
+    })
 })
