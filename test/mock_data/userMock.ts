@@ -1,7 +1,7 @@
 import { user as User } from '@prisma/client';
 
 export const userExample: User = {
-    id: '',
+    id: '0',
     first_name: 'Pichu',
     last_name: 'Fisher',
     email: 'admin@admin.com',
