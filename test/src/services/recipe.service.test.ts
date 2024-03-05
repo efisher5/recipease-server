@@ -10,6 +10,7 @@ import { userExample } from '../../mock_data/userMock';
 
 jest.mock('../../../src/repository/recipe.repository');
 
+// TODO: Write tests for error handling
 describe('Test Recipe Service', () => {
     const recipeService: RecipeService = new RecipeService();
 
@@ -18,10 +19,6 @@ describe('Test Recipe Service', () => {
         const res: RecipeListingDto[] = await recipeService.findRecipes(userExample.id);
         expect(RecipeRepository.prototype.findAllRecipes).toBeCalledTimes(1);
         expect(res.length).toBe(1);
-    })
-
-    test('findRecipes error when user id not found', async () => {
-
     })
 
     test('getRecipeById', async () => {
@@ -48,10 +45,6 @@ describe('Test Recipe Service', () => {
         }
     })
 
-    test('getRecipeById error when recipe not found', async () => {
-
-    })
-
     test('createRecipe', async () => {
         (RecipeRepository.prototype.createRecipe as jest.Mock).mockReturnValueOnce(recipeExample);
         const res: RecipeDto = await recipeService.createRecipe(userExample);
@@ -72,18 +65,10 @@ describe('Test Recipe Service', () => {
         expect(res.cookTimeHours).toBe(1)
     })
 
-    test('updateRecipe error when recipe not found', async () => {
-
-    })
-
     test('deleteRecipe', async () => {
         (RecipeRepository.prototype.deleteRecipe as jest.Mock).mockReturnValueOnce(204);
         const res: any = await recipeService.deleteRecipe(recipeDtoExample.recipeId!);
 
         expect(RecipeRepository.prototype.deleteRecipe).toBeCalledTimes(1);
-    })
-
-    test('deleteREcipe error when recipe not found', async () => {
-
     })
 })
