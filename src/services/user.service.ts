@@ -4,15 +4,6 @@ import UserRepository from '../repository/user.repository';
 export default class UserService {
     private userRepository: UserRepository = new UserRepository();
 
-    public async findUserByEmail(email: string): Promise<User> {
-        try {
-            const user: User = await this.userRepository.findUserOnLogin(email);
-            return user;
-        } catch (e) {
-            throw e;
-        }
-    }
-
     public async findUserById(userId: string): Promise<User> {
         try {
             const user: User = await this.userRepository.findUser(userId);
