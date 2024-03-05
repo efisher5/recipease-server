@@ -6,7 +6,11 @@ jobs:
       - image: cimg/node:22.11.0
     steps:
       - checkout
+
+      # Install Dependencies
       - run: npm install
+
+      # Run Jest tests
       - run: npm run test
   deploy:
     docker:
