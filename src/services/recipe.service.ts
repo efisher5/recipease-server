@@ -59,6 +59,7 @@ export default class RecipeService {
     public async updateRecipe(recipeId: string, recipe: Recipe, user: User): Promise<RecipeDto> {
         try {
             logger.info('Editing recipe: ' + recipeId);
+            recipe.user_id = user.id;
             recipe.updated_by = user.email;
             recipe.updated_ts = new Date();
 
