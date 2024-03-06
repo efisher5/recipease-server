@@ -17,17 +17,6 @@ class UserService {
     constructor() {
         this.userRepository = new user_repository_1.default();
     }
-    findUserByEmail(email) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const user = yield this.userRepository.findUserOnLogin(email);
-                return user;
-            }
-            catch (e) {
-                throw e;
-            }
-        });
-    }
     findUserById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -6,12 +6,6 @@ export class RecipeListingDto {
      */
     'recipeId'?: string;
     /**
-     * The id of the user associated with the recipe
-     * @type {string}
-     * @memberof RecipeListingDto
-     */
-    'userId'?: string;
-    /**
      * The name of the recipe
      * @type {string}
      * @memberof RecipeListingDto

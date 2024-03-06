@@ -20,7 +20,6 @@ class RecipeMapper {
     recipeToRecipeListingDto(recipe) {
         const recipeListingDto = new recipeListing_dto_1.RecipeListingDto();
         recipeListingDto.recipeId = recipe.id;
-        recipeListingDto.userId = recipe.user_id;
         recipeListingDto.name = recipe.name;
         recipeListingDto.createdTs = recipe.created_ts;
         // Convert prep time and cook time into cook time
