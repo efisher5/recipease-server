@@ -24,7 +24,6 @@ export default class RecipeMapper {
         const recipeListingDto: RecipeListingDto = new RecipeListingDto();
 
         recipeListingDto.recipeId = recipe.id;
-        recipeListingDto.userId = recipe.user_id;
         recipeListingDto.name = recipe.name;
         recipeListingDto.createdTs = recipe.created_ts;
 

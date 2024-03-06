@@ -76,7 +76,7 @@ class RecipeService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 logger_1.logger.info('Editing recipe: ' + recipeId);
-                console.log(user);
+                recipe.user_id = user.id;
                 recipe.updated_by = user.email;
                 recipe.updated_ts = new Date();
                 recipe = yield this.recipeRepository.updateRecipe(recipeId, recipe);

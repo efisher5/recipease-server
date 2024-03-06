@@ -15,7 +15,6 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "recipeId": {"dataType":"string"},
-            "userId": {"dataType":"string"},
             "name": {"dataType":"string"},
             "totalTime": {"dataType":"string"},
             "createdTs": {"dataType":"datetime"},
