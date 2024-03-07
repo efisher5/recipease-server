@@ -52,11 +52,11 @@ export class RecipeDto {
      * @type {Array<string>}
      * @memberof RecipeDto
      */
-    'ingredients'?: Array<string>;
+    'ingredients'?: string;
     /**
      * The instructions for the recipe
      * @type {Array<string>}
      * @memberof RecipeDto
      */
-    'instructions'?: Array<string>;
+    'instructions'?: string;
 }

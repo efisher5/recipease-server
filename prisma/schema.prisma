@@ -32,8 +32,8 @@ model recipe {
   prep_time_minutes Int
   cook_time_hours   Int
   cook_time_minutes Int
-  ingredients       String[]
-  instructions      String[]
+  ingredients       String
+  instructions      String
   created_ts        DateTime              @default(now())
   created_by        String
   updated_ts        DateTime?
