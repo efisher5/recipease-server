@@ -53,14 +53,10 @@ components:
                     format: double
                     description: 'The cook time minutes for the recipe'
                 ingredients:
-                    items:
-                        type: string
-                    type: array
+                    type: string
                     description: 'The ingredients for the recipe'
                 instructions:
-                    items:
-                        type: string
-                    type: array
+                    type: string
                     description: 'The instructions for the recipe'
             type: object
             additionalProperties: false

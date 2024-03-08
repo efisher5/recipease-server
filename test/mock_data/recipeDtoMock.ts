@@ -9,18 +9,17 @@ export const recipeDtoExample: RecipeDto = {
     prepTimeMinutes: 5,
     cookTimeHours: 0,
     cookTimeMinutes: 20,
-    ingredients: [
-        'Onions',
-        'Cheese',
-        'Butter',
-        'Bread',
-        'Salt',
+    instructions:
+        'Dice the onions\n' +
+        'Shred the cheese\n' +
+        'Cook onions on medium low for 10 minutes\n' +
+        'Mix cheese and onions. Put on bread and cook on each side for 5 minutes\n'
+    ,
+    ingredients: 
+        'Onions\n' +
+        'Cheese\n' +
+        'Butter\n' +
+        'Bread\n' +
+        'Salt\n' +
         'Black Pepper'
-    ],
-    instructions: [
-        'Dice the onions',
-        'Shred the cheese',
-        'Cook onions on medium low for 10 minutes',
-        'Mix cheese and onions. Put on bread and cook on each side for 5 minutes'
-    ]
 }

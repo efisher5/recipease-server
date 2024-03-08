@@ -36,11 +36,12 @@ export default class RecipeService {
 
     public async createRecipe(user: User): Promise<RecipeDto> {
         try {
-            // Note: Not adding info logs for this function so userId isn't exposed to console
             let recipe: Recipe = {} as Recipe;
             recipe.created_by = user.email;
-            recipe.user_id = user.id;
+            recipe.user_id = user.id.toString();
             recipe.name = 'Blank Recipe';
+            recipe.ingredients = '';
+            recipe.instructions = '';
             recipe.prep_time_hours = 0;
             recipe.prep_time_minutes = 0;
             recipe.cook_time_hours = 0;
